@@ -1,0 +1,71 @@
+﻿@using SistemaTareas.Models
+@model TareaCLS
+@{
+    ViewBag.Title = "Agregar";
+    List<SelectListItem> listarCategorias = (List<SelectListItem>)ViewBag.listarCategorias;
+    List<SelectListItem> listarEstados = (List<SelectListItem>)ViewBag.listarEstados;
+    List<SelectListItem> listarNivelUrgencia = (List<SelectListItem>)ViewBag.listarNivelUrgencia;
+
+
+}
+
+
+<style>
+    label {
+        margin: 5px;
+    }
+</style>
+
+<h2 class="m-5 text-center">Agregar nueva tarea</h2>
+
+<div class="d-flex justify-content-center">
+    <div class="shadow-lg p-3 mb-5 bg-body rounded w-50 justify-content-center">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                @using (Html.BeginForm("Agregar", "Tareas", FormMethod.Post))
+                {
+
+                    <div>
+                        @Html.LabelFor(p => p.tituloTarea)
+                        @Html.TextBoxFor(p => p.tituloTarea, new { @class = "form-control" })
+                    </div>
+                    <div>
+                        @Html.LabelFor(p => p.descripcionTarea)
+                        @Html.TextBoxFor(p => p.descripcionTarea, new { @class = "form-control" })
+                    </div>
+                    <div>
+                        @Html.LabelFor(p => p.fechaInicio)
+                        @Html.EditorFor(p => p.fechaInicio, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                    <div>
+                        @Html.LabelFor(p => p.fechaTermino)
+                        @Html.EditorFor(p => p.fechaTermino, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                    <div>
+                        @Html.LabelFor(p => p.IdCategoria)
+                        @Html.DropDownList("IdCategoria", listarCategorias, new { @class = "form-select" })
+                    </div>
+                    <div>
+                        @Html.LabelFor(p => p.IdEstado)
+                        @Html.DropDownList("IdEstado", listarEstados, new { @class = "form-select" })
+                    </div>
+                    <div>
+                        @Html.LabelFor(p => p.IdNivelUrgencia)
+                        @Html.DropDownList("IdNivelUrgencia", listarNivelUrgencia, new { @class = "form-select" })
+                    </div>
+
+                    <div class="text-center m-5">
+                        <input class="btn btn-primary" type="submit" value="Guardar" id="toastrSuccess" />
+                        @Html.ActionLink("Cancelar", "Index", "Tareas", null, new { @class = "btn btn-danger" })
+                    </div>
+
+                }
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+
+
