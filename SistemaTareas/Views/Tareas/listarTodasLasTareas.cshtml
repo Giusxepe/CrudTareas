@@ -2,29 +2,14 @@
 @model List<TareaCLS>
 @{
     ViewBag.Title = "Index";
-
-    List<SelectListItem> listarCategorias = (List<SelectListItem>)ViewBag.listarCategorias;
-    List<SelectListItem> listarEstados = (List<SelectListItem>)ViewBag.listarEstados;
-    List<SelectListItem> listarNivelUrgencia = (List<SelectListItem>)ViewBag.listarNivelUrgencia;
+   
 
 }
  
 
 <h2 class="fs-2 m-5">Todas las tareas</h2>
 
-<div class="m-5">
-    <div>
-         
-        @Html.DropDownList("Id_Categoria", listarCategorias,null, new { @class = "form-select" })
-    </div>
-    <div> 
-        @Html.DropDownList("Id_Estado", listarEstados,null, new { @class = "form-select" })
-    </div>
-    <div>
-       
-        @Html.DropDownList("Id_NivelUrgencia", listarNivelUrgencia,null, new { @class = "form-select" })
-    </div>
-</div>
+
 
 <div class="d-flex">
     @foreach (var item in Model)
