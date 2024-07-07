@@ -28,13 +28,13 @@ namespace SistemaTareas.Models
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime fechaTermino { get; set; }
         [Display(Name = "Categoria")]
-        public int IdCategoria { get; set; }
+        public int? IdCategoria { get; set; }
         [Display(Name = "Estado")]
-        public int IdEstado { get; set; }
+        public int? IdEstado { get; set; }
         [Display(Name = "Nivel de urgencia")]
-        public int IdNivelUrgencia { get; set; }
+        public int? IdNivelUrgencia { get; set; }
 
-        public int habilitado { get; set; }
+        public bool habilitado { get; set; }
 
         //propiedades adicionales
 

@@ -20,25 +20,25 @@ namespace SistemaTareas.Controllers
                 {
                     listaTareas = (from tarea in bd.Tareas
                                    join Cat in bd.Categoria
-                                   on tarea.Id_Categoria equals Cat.Id_Categoria
+                                   on tarea.IdCategoria equals Cat.IdCategoria
                                    join Est in bd.Estado
-                                   on tarea.Id_Estado equals Est.Id_Estado
+                                   on tarea.IdEstado equals Est.IdEstado
                                    join Niv in bd.NivelUrgencia
-                                   on tarea.Id_NivelUrgencia equals Niv.Id_NivelUrgencia
-                                   where tarea.Habilitado == 1
+                                   on tarea.IdNivelUrgencia equals Niv.IdNUrgencia
+                                   where tarea.Habilitada == true
                                    select new TareaCLS
                                    {
-                                       IdTarea = tarea.Id_Tarea,
-                                       tituloTarea = tarea.Titulo_Tarea,
+                                       IdTarea = tarea.IdTarea,
+                                       tituloTarea = tarea.TituloTarea,
                                        descripcionTarea = tarea.Descripcion,
-                                       fechaInicio = (DateTime)tarea.Fecha_Inicio,
-                                       fechaTermino = (DateTime)tarea.Fecha_Termino,
-                                       IdCategoria = tarea.Id_Categoria,
-                                       IdEstado = tarea.Id_Estado,
-                                       IdNivelUrgencia = tarea.Id_NivelUrgencia,
-                                       categoria = Cat.Categoria1,
+                                       fechaInicio = (DateTime)tarea.FechaInicio,
+                                       fechaTermino = (DateTime)tarea.FechaTermino,
+                                       IdCategoria = tarea.IdCategoria,
+                                       IdEstado = tarea.IdEstado,
+                                       IdNivelUrgencia = tarea.IdNivelUrgencia,
+                                       categoria = Cat.NombreCategoria,
                                        estado = Est.Estado1,
-                                       nivelUrgencia = Niv.Nivel
+                                       nivelUrgencia = Niv.NivelUrgencia1
 
 
                                    }).ToList();
@@ -63,7 +63,7 @@ namespace SistemaTareas.Controllers
                 listarEstados = (from estados in bd.Estado
                                select new SelectListItem
                                {
-                                   Value= estados.Id_Estado.ToString(),
+                                   Value= estados.IdEstado.ToString(),
                                    Text = estados.Estado1
                                }).ToList();
                 listarEstados.Insert(0, new SelectListItem { Text = "-- Seleccione un estado --", Value = "" });
@@ -83,8 +83,8 @@ namespace SistemaTareas.Controllers
                 listarCategorias = (from item in bd.Categoria
                          select new SelectListItem
                          {
-                             Value = item.Id_Categoria.ToString(),
-                             Text = item.Categoria1
+                             Value = item.IdCategoria.ToString(),
+                             Text = item.NombreCategoria
                          }).ToList();
                 listarCategorias.Insert(0, new SelectListItem { Text = "Seleccione una categoria", Value = "" });
                 ViewBag.listarCategorias = listarCategorias;
@@ -101,8 +101,8 @@ namespace SistemaTareas.Controllers
                 listarNivelUrgencia = (from item in bd.NivelUrgencia
                          select new SelectListItem
                          {
-                             Value = item.Id_NivelUrgencia.ToString(),
-                             Text = item.Nivel
+                             Value = item.IdNUrgencia.ToString(),
+                             Text = item.NivelUrgencia1
                          }).ToList();
                 listarNivelUrgencia.Insert(0, new SelectListItem { Text = "Seleccione el nivel de urgencia", Value = "" });
                 ViewBag.ListarNivelUrgencia = listarNivelUrgencia;
@@ -115,9 +115,9 @@ namespace SistemaTareas.Controllers
             ListarEstados();
             ListarCategorias();
             ListarNivelUrgencia();
-            ViewBag.listarCategorias;
-            ViewBag.listarEstados;
-            ViewBag.listarNivelUrgencia;
+        //    ViewBag.listarCategorias;
+        //    ViewBag.listarEstados;
+        //    ViewBag.listarNivelUrgencia;
         }
 
         public ActionResult Agregar()
@@ -139,14 +139,14 @@ namespace SistemaTareas.Controllers
             using (var bd = new TareasDBEntities())
             {
                 Tareas oTarea = new Tareas();
-                oTarea.Titulo_Tarea = oTareasCLS.tituloTarea;
+                oTarea.TituloTarea = oTareasCLS.tituloTarea;
                 oTarea.Descripcion = oTareasCLS.descripcionTarea;
-                oTarea.Fecha_Inicio = oTareasCLS.fechaInicio;
-                oTarea.Fecha_Termino = oTareasCLS.fechaTermino;
-                oTarea.Id_Categoria = oTareasCLS.IdCategoria;
-                oTarea.Id_Estado = oTareasCLS.IdEstado;
-                oTarea.Id_NivelUrgencia = oTareasCLS.IdNivelUrgencia;
-                oTarea.Habilitado = 1;
+                oTarea.FechaInicio = oTareasCLS.fechaInicio;
+                oTarea.FechaTermino = oTareasCLS.fechaTermino;
+                oTarea.IdCategoria = oTareasCLS.IdCategoria;
+                oTarea.IdEstado = oTareasCLS.IdEstado;
+                oTarea.IdNivelUrgencia = oTareasCLS.IdNivelUrgencia;
+                oTarea.Habilitada = true;
                 bd.Tareas.Add(oTarea);
                 bd.SaveChanges();
             }
@@ -161,15 +161,15 @@ namespace SistemaTareas.Controllers
             using (var bd = new TareasDBEntities())
             {
               
-                Tareas oTareas = bd.Tareas.Where(p => p.Id_Tarea.Equals(id)).First();
-                tareasCLS.IdTarea = oTareas.Id_Tarea;
-                tareasCLS.tituloTarea = oTareas.Titulo_Tarea;
+                Tareas oTareas = bd.Tareas.Where(p => p.IdTarea.Equals(id)).First();
+                tareasCLS.IdTarea = oTareas.IdTarea;
+                tareasCLS.tituloTarea = oTareas.TituloTarea;
                 tareasCLS.descripcionTarea = oTareas.Descripcion;
-                tareasCLS.fechaInicio = oTareas.Fecha_Inicio;
-                tareasCLS.fechaTermino =(DateTime)oTareas.Fecha_Termino;
-                tareasCLS.IdCategoria = oTareas.Id_Categoria ;
-                tareasCLS.IdEstado = oTareas.Id_Estado ;
-                tareasCLS.IdNivelUrgencia = oTareas.Id_NivelUrgencia ;
+                tareasCLS.fechaInicio = oTareas.FechaInicio;
+                tareasCLS.fechaTermino =(DateTime)oTareas.FechaTermino;
+                tareasCLS.IdCategoria = oTareas.IdCategoria ;
+                tareasCLS.IdEstado = oTareas.IdEstado ;
+                tareasCLS.IdNivelUrgencia = oTareas.IdNivelUrgencia ;
             }
             return View(tareasCLS);
         }
@@ -186,16 +186,16 @@ namespace SistemaTareas.Controllers
 
             using(var bd = new TareasDBEntities())
             {
-                Tareas oTarea = bd.Tareas.Where(p => p.Id_Tarea.Equals(idTarea)).First();
-                oTarea.Titulo_Tarea = oTareaCLS.tituloTarea;
-                oTarea.Id_Tarea  = oTareaCLS.IdTarea;
-                oTarea.Titulo_Tarea = oTareaCLS.tituloTarea ;
+                Tareas oTarea = bd.Tareas.Where(p => p.IdTarea.Equals(idTarea)).First();
+                oTarea.TituloTarea = oTareaCLS.tituloTarea;
+                oTarea.IdTarea  = oTareaCLS.IdTarea;
+                oTarea.TituloTarea = oTareaCLS.tituloTarea ;
                 oTarea.Descripcion = oTareaCLS.descripcionTarea;
-                oTarea.Fecha_Inicio = oTareaCLS.fechaInicio;
-                oTarea.Fecha_Termino =  oTareaCLS.fechaTermino;
-                oTarea.Id_Categoria = oTareaCLS.IdCategoria;
-                oTarea.Id_Estado = oTareaCLS.IdEstado;
-                oTarea.Id_NivelUrgencia = oTareaCLS.IdNivelUrgencia ;
+                oTarea.FechaInicio = oTareaCLS.fechaInicio;
+                oTarea.FechaTermino =  oTareaCLS.fechaTermino;
+                oTarea.IdCategoria = oTareaCLS.IdCategoria;
+                oTarea.IdEstado = oTareaCLS.IdEstado;
+                oTarea.IdNivelUrgencia = oTareaCLS.IdNivelUrgencia ;
                 bd.SaveChanges();
             }
 
@@ -207,8 +207,8 @@ namespace SistemaTareas.Controllers
         {
             using (var bd = new TareasDBEntities())
             {
-                Tareas ot = bd.Tareas.Where(p => p.Id_Tarea.Equals(IdTarea)).First();
-                ot.Habilitado = 0;
+                Tareas ot = bd.Tareas.Where(p => p.IdTarea.Equals(IdTarea)).First();
+                ot.Habilitada = false;
                 bd.SaveChanges();
             }
 
@@ -223,22 +223,22 @@ namespace SistemaTareas.Controllers
             {
                 listaTareas = (from tarea in bd.Tareas
                                join Cat in bd.Categoria
-                               on tarea.Id_Categoria equals Cat.Id_Categoria
+                               on tarea.IdCategoria equals Cat.IdCategoria
                                join Est in bd.Estado
-                               on tarea.Id_Estado equals Est.Id_Estado
+                               on tarea.IdEstado equals Est.IdEstado
                                join Niv in bd.NivelUrgencia
-                               on tarea.Id_NivelUrgencia equals Niv.Id_NivelUrgencia
-                               where tarea.Habilitado == 1
+                               on tarea.IdNivelUrgencia equals Niv.IdNUrgencia
+                               where tarea.Habilitada == true
                                select new TareaCLS
                                {
-                                   IdTarea = tarea.Id_Tarea,
-                                   tituloTarea = tarea.Titulo_Tarea,
+                                   IdTarea = tarea.IdTarea,
+                                   tituloTarea = tarea.TituloTarea,
                                    descripcionTarea = tarea.Descripcion,
-                                   fechaInicio = (DateTime)tarea.Fecha_Inicio,
-                                   fechaTermino = (DateTime)tarea.Fecha_Termino,
-                                   categoria = Cat.Categoria1,
+                                   fechaInicio = (DateTime)tarea.FechaInicio,
+                                   fechaTermino = (DateTime)tarea.FechaTermino,
+                                   categoria = Cat.NombreCategoria,
                                    estado = Est.Estado1,
-                                   nivelUrgencia = Niv.Nivel
+                                   nivelUrgencia = Niv.NivelUrgencia1
                                  
                                }).ToList();
             }
@@ -253,23 +253,23 @@ namespace SistemaTareas.Controllers
             {
                 listaTareas = (from tarea in bd.Tareas
                                join Cat in bd.Categoria
-                               on tarea.Id_Categoria equals Cat.Id_Categoria
+                               on tarea.IdCategoria equals Cat.IdCategoria
                                join Est in bd.Estado
-                               on tarea.Id_Estado equals Est.Id_Estado
+                               on tarea.IdEstado equals Est.IdEstado
                                join Niv in bd.NivelUrgencia
-                               on tarea.Id_NivelUrgencia equals Niv.Id_NivelUrgencia
+                               on tarea.IdNivelUrgencia equals Niv.IdNUrgencia
                                where Est.Estado1.Equals("Terminada") &&
-                               tarea.Habilitado == 1 
+                               tarea.Habilitada == true
                                select new TareaCLS
                                {
-                                   IdTarea = tarea.Id_Tarea,
-                                   tituloTarea = tarea.Titulo_Tarea,
+                                   IdTarea = tarea.IdTarea,
+                                   tituloTarea = tarea.TituloTarea,
                                    descripcionTarea = tarea.Descripcion,
-                                   fechaInicio = (DateTime)tarea.Fecha_Inicio,
-                                   fechaTermino = (DateTime)tarea.Fecha_Termino,
-                                   categoria = Cat.Categoria1,
+                                   fechaInicio = (DateTime)tarea.FechaInicio,
+                                   fechaTermino = (DateTime)tarea.FechaTermino,
+                                   categoria = Cat.NombreCategoria,
                                    estado = Est.Estado1,
-                                   nivelUrgencia = Niv.Nivel
+                                   nivelUrgencia = Niv.NivelUrgencia1
                                    
                                }).ToList();
             }
@@ -283,23 +283,23 @@ namespace SistemaTareas.Controllers
             {
                 listaTareas = (from tarea in bd.Tareas
                                join Cat in bd.Categoria
-                               on tarea.Id_Categoria equals Cat.Id_Categoria
+                               on tarea.IdCategoria equals Cat.IdCategoria
                                join Est in bd.Estado
-                               on tarea.Id_Estado equals Est.Id_Estado
+                               on tarea.IdEstado equals Est.IdEstado
                                join Niv in bd.NivelUrgencia
-                               on tarea.Id_NivelUrgencia equals Niv.Id_NivelUrgencia
+                               on tarea.IdNivelUrgencia equals Niv.IdNUrgencia
                                where Est.Estado1.Equals("No terminada") &&
-                               tarea.Habilitado == 1
+                               tarea.Habilitada == true
                                select new TareaCLS
                                {
-                                   IdTarea = tarea.Id_Tarea,
-                                   tituloTarea = tarea.Titulo_Tarea,
+                                   IdTarea = tarea.IdTarea,
+                                   tituloTarea = tarea.TituloTarea,
                                    descripcionTarea = tarea.Descripcion,
-                                   fechaInicio = (DateTime)tarea.Fecha_Inicio,
-                                   fechaTermino = (DateTime)tarea.Fecha_Termino,
-                                   categoria = Cat.Categoria1,
+                                   fechaInicio = (DateTime)tarea.FechaInicio,
+                                   fechaTermino = (DateTime)tarea.FechaTermino,
+                                   categoria = Cat.NombreCategoria,
                                    estado = Est.Estado1,
-                                   nivelUrgencia = Niv.Nivel
+                                   nivelUrgencia = Niv.NivelUrgencia1
 
                                }).ToList();
             }

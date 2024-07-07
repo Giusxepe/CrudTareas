@@ -20,7 +20,7 @@ namespace SistemaTareas.Models
             this.Tareas = new HashSet<Tareas>();
         }
     
-        public int Id_Estado { get; set; }
+        public int IdEstado { get; set; }
         public string Estado1 { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -1,34 +1,53 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="TareasDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="TareasDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Categoria" EntityType="TareasDBModel.Categoria" />
+    <EntitySet Name="Estado" EntityType="TareasDBModel.Estado" />
+    <EntitySet Name="NivelUrgencia" EntityType="TareasDBModel.NivelUrgencia" />
+    <EntitySet Name="sysdiagrams" EntityType="TareasDBModel.sysdiagrams" />
+    <EntitySet Name="Tareas" EntityType="TareasDBModel.Tareas" />
+    <AssociationSet Name="FK_Tareas_Categoria" Association="TareasDBModel.FK_Tareas_Categoria">
+      <End Role="Categoria" EntitySet="Categoria" />
+      <End Role="Tareas" EntitySet="Tareas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Tareas_Estado" Association="TareasDBModel.FK_Tareas_Estado">
+      <End Role="Estado" EntitySet="Estado" />
+      <End Role="Tareas" EntitySet="Tareas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Tareas_NivelUrgencia" Association="TareasDBModel.FK_Tareas_NivelUrgencia">
+      <End Role="NivelUrgencia" EntitySet="NivelUrgencia" />
+      <End Role="Tareas" EntitySet="Tareas" />
+    </AssociationSet>
+  </EntityContainer>
   <EntityType Name="Categoria">
     <Key>
-      <PropertyRef Name="Id_Categoria" />
+      <PropertyRef Name="IdCategoria" />
     </Key>
-    <Property Name="Id_Categoria" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Categoria1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-    <NavigationProperty Name="Tareas" Relationship="Self.FK_Tareas_Categoria" FromRole="Categoria" ToRole="Tareas" />
+    <Property Name="IdCategoria" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NombreCategoria" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Tareas" Relationship="TareasDBModel.FK_Tareas_Categoria" FromRole="Categoria" ToRole="Tareas" />
   </EntityType>
   <EntityType Name="Estado">
     <Key>
-      <PropertyRef Name="Id_Estado" />
+      <PropertyRef Name="IdEstado" />
     </Key>
-    <Property Name="Id_Estado" Type="Int32" Nullable="false" />
-    <Property Name="Estado1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-    <NavigationProperty Name="Tareas" Relationship="Self.FK_Tareas_Estado" FromRole="Estado" ToRole="Tareas" />
+    <Property Name="IdEstado" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Estado1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Tareas" Relationship="TareasDBModel.FK_Tareas_Estado" FromRole="Estado" ToRole="Tareas" />
   </EntityType>
   <EntityType Name="NivelUrgencia">
     <Key>
-      <PropertyRef Name="Id_NivelUrgencia" />
+      <PropertyRef Name="IdNUrgencia" />
     </Key>
-    <Property Name="Id_NivelUrgencia" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Nivel" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-    <NavigationProperty Name="Tareas" Relationship="Self.FK_Tareas_NivelUrgencia" FromRole="NivelUrgencia" ToRole="Tareas" />
+    <Property Name="IdNUrgencia" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NivelUrgencia1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Tareas" Relationship="TareasDBModel.FK_Tareas_NivelUrgencia" FromRole="NivelUrgencia" ToRole="Tareas" />
   </EntityType>
   <EntityType Name="sysdiagrams">
     <Key>
       <PropertyRef Name="diagram_id" />
     </Key>
-    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
     <Property Name="principal_id" Type="Int32" Nullable="false" />
     <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="version" Type="Int32" />
@@ -36,74 +55,55 @@
   </EntityType>
   <EntityType Name="Tareas">
     <Key>
-      <PropertyRef Name="Id_Tarea" />
+      <PropertyRef Name="IdTarea" />
     </Key>
-    <Property Name="Id_Tarea" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Titulo_Tarea" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="Descripcion" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="Fecha_Inicio" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="Fecha_Termino" Type="DateTime" Precision="3" />
-    <Property Name="Habilitado" Type="Int32" Nullable="false" />
-    <Property Name="Id_Categoria" Type="Int32" Nullable="false" />
-    <Property Name="Id_Estado" Type="Int32" Nullable="false" />
-    <Property Name="Id_NivelUrgencia" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="Categoria" Relationship="Self.FK_Tareas_Categoria" FromRole="Tareas" ToRole="Categoria" />
-    <NavigationProperty Name="Estado" Relationship="Self.FK_Tareas_Estado" FromRole="Tareas" ToRole="Estado" />
-    <NavigationProperty Name="NivelUrgencia" Relationship="Self.FK_Tareas_NivelUrgencia" FromRole="Tareas" ToRole="NivelUrgencia" />
+    <Property Name="IdTarea" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TituloTarea" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Habilitada" Type="Boolean" />
+    <Property Name="FechaInicio" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="FechaTermino" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="IdNivelUrgencia" Type="Int32" />
+    <Property Name="IdCategoria" Type="Int32" />
+    <Property Name="IdEstado" Type="Int32" />
+    <NavigationProperty Name="Categoria" Relationship="TareasDBModel.FK_Tareas_Categoria" FromRole="Tareas" ToRole="Categoria" />
+    <NavigationProperty Name="Estado" Relationship="TareasDBModel.FK_Tareas_Estado" FromRole="Tareas" ToRole="Estado" />
+    <NavigationProperty Name="NivelUrgencia" Relationship="TareasDBModel.FK_Tareas_NivelUrgencia" FromRole="Tareas" ToRole="NivelUrgencia" />
   </EntityType>
   <Association Name="FK_Tareas_Categoria">
-    <End Role="Categoria" Type="Self.Categoria" Multiplicity="1" />
-    <End Role="Tareas" Type="Self.Tareas" Multiplicity="*" />
+    <End Type="TareasDBModel.Categoria" Role="Categoria" Multiplicity="0..1" />
+    <End Type="TareasDBModel.Tareas" Role="Tareas" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Categoria">
-        <PropertyRef Name="Id_Categoria" />
+        <PropertyRef Name="IdCategoria" />
       </Principal>
       <Dependent Role="Tareas">
-        <PropertyRef Name="Id_Categoria" />
+        <PropertyRef Name="IdCategoria" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Tareas_Estado">
-    <End Role="Estado" Type="Self.Estado" Multiplicity="1" />
-    <End Role="Tareas" Type="Self.Tareas" Multiplicity="*" />
+    <End Type="TareasDBModel.Estado" Role="Estado" Multiplicity="0..1" />
+    <End Type="TareasDBModel.Tareas" Role="Tareas" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Estado">
-        <PropertyRef Name="Id_Estado" />
+        <PropertyRef Name="IdEstado" />
       </Principal>
       <Dependent Role="Tareas">
-        <PropertyRef Name="Id_Estado" />
+        <PropertyRef Name="IdEstado" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Tareas_NivelUrgencia">
-    <End Role="NivelUrgencia" Type="Self.NivelUrgencia" Multiplicity="1" />
-    <End Role="Tareas" Type="Self.Tareas" Multiplicity="*" />
+    <End Type="TareasDBModel.NivelUrgencia" Role="NivelUrgencia" Multiplicity="0..1" />
+    <End Type="TareasDBModel.Tareas" Role="Tareas" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="NivelUrgencia">
-        <PropertyRef Name="Id_NivelUrgencia" />
+        <PropertyRef Name="IdNUrgencia" />
       </Principal>
       <Dependent Role="Tareas">
-        <PropertyRef Name="Id_NivelUrgencia" />
+        <PropertyRef Name="IdNivelUrgencia" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="TareasDBEntities" annotation:LazyLoadingEnabled="true">
-    <EntitySet Name="Categoria" EntityType="Self.Categoria" />
-    <EntitySet Name="Estado" EntityType="Self.Estado" />
-    <EntitySet Name="NivelUrgencia" EntityType="Self.NivelUrgencia" />
-    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
-    <EntitySet Name="Tareas" EntityType="Self.Tareas" />
-    <AssociationSet Name="FK_Tareas_Categoria" Association="Self.FK_Tareas_Categoria">
-      <End Role="Categoria" EntitySet="Categoria" />
-      <End Role="Tareas" EntitySet="Tareas" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Tareas_Estado" Association="Self.FK_Tareas_Estado">
-      <End Role="Estado" EntitySet="Estado" />
-      <End Role="Tareas" EntitySet="Tareas" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Tareas_NivelUrgencia" Association="Self.FK_Tareas_NivelUrgencia">
-      <End Role="NivelUrgencia" EntitySet="NivelUrgencia" />
-      <End Role="Tareas" EntitySet="Tareas" />
-    </AssociationSet>
-  </EntityContainer>
 </Schema>

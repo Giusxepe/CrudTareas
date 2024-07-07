@@ -14,15 +14,15 @@ namespace SistemaTareas.Models
     
     public partial class Tareas
     {
-        public int Id_Tarea { get; set; }
-        public string Titulo_Tarea { get; set; }
+        public int IdTarea { get; set; }
+        public string TituloTarea { get; set; }
         public string Descripcion { get; set; }
-        public System.DateTime Fecha_Inicio { get; set; }
-        public Nullable<System.DateTime> Fecha_Termino { get; set; }
-        public int Habilitado { get; set; }
-        public int Id_Categoria { get; set; }
-        public int Id_Estado { get; set; }
-        public int Id_NivelUrgencia { get; set; }
+        public Nullable<bool> Habilitada { get; set; }
+        public System.DateTime FechaInicio { get; set; }
+        public System.DateTime FechaTermino { get; set; }
+        public Nullable<int> IdNivelUrgencia { get; set; }
+        public Nullable<int> IdCategoria { get; set; }
+        public Nullable<int> IdEstado { get; set; }
     
         public virtual Categoria Categoria { get; set; }
         public virtual Estado Estado { get; set; }

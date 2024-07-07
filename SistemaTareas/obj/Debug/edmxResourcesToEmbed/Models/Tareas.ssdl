@@ -2,24 +2,24 @@
 <Schema Namespace="TareasDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityType Name="Categoria">
     <Key>
-      <PropertyRef Name="Id_Categoria" />
+      <PropertyRef Name="IdCategoria" />
     </Key>
-    <Property Name="Id_Categoria" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Categoria" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="IdCategoria" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NombreCategoria" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="Estado">
     <Key>
-      <PropertyRef Name="Id_Estado" />
+      <PropertyRef Name="IdEstado" />
     </Key>
-    <Property Name="Id_Estado" Type="int" Nullable="false" />
-    <Property Name="Estado" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="IdEstado" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Estado" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="NivelUrgencia">
     <Key>
-      <PropertyRef Name="Id_NivelUrgencia" />
+      <PropertyRef Name="IdNUrgencia" />
     </Key>
-    <Property Name="Id_NivelUrgencia" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Nivel" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="IdNUrgencia" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NivelUrgencia" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="sysdiagrams">
     <Key>
@@ -33,51 +33,51 @@
   </EntityType>
   <EntityType Name="Tareas">
     <Key>
-      <PropertyRef Name="Id_Tarea" />
+      <PropertyRef Name="IdTarea" />
     </Key>
-    <Property Name="Id_Tarea" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Titulo_Tarea" Type="nvarchar" MaxLength="100" Nullable="false" />
-    <Property Name="Descripcion" Type="nvarchar" MaxLength="200" />
-    <Property Name="Fecha_Inicio" Type="datetime" Nullable="false" />
-    <Property Name="Fecha_Termino" Type="datetime" />
-    <Property Name="Habilitado" Type="int" Nullable="false" />
-    <Property Name="Id_Categoria" Type="int" Nullable="false" />
-    <Property Name="Id_Estado" Type="int" Nullable="false" />
-    <Property Name="Id_NivelUrgencia" Type="int" Nullable="false" />
+    <Property Name="IdTarea" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TituloTarea" Type="nvarchar" MaxLength="50" />
+    <Property Name="Descripcion" Type="nvarchar" MaxLength="50" />
+    <Property Name="Habilitada" Type="bit" />
+    <Property Name="FechaInicio" Type="datetime" Nullable="false" />
+    <Property Name="FechaTermino" Type="datetime" Nullable="false" />
+    <Property Name="IdNivelUrgencia" Type="int" />
+    <Property Name="IdCategoria" Type="int" />
+    <Property Name="IdEstado" Type="int" />
   </EntityType>
   <Association Name="FK_Tareas_Categoria">
-    <End Role="Categoria" Type="Self.Categoria" Multiplicity="1" />
+    <End Role="Categoria" Type="Self.Categoria" Multiplicity="0..1" />
     <End Role="Tareas" Type="Self.Tareas" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Categoria">
-        <PropertyRef Name="Id_Categoria" />
+        <PropertyRef Name="IdCategoria" />
       </Principal>
       <Dependent Role="Tareas">
-        <PropertyRef Name="Id_Categoria" />
+        <PropertyRef Name="IdCategoria" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Tareas_Estado">
-    <End Role="Estado" Type="Self.Estado" Multiplicity="1" />
+    <End Role="Estado" Type="Self.Estado" Multiplicity="0..1" />
     <End Role="Tareas" Type="Self.Tareas" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Estado">
-        <PropertyRef Name="Id_Estado" />
+        <PropertyRef Name="IdEstado" />
       </Principal>
       <Dependent Role="Tareas">
-        <PropertyRef Name="Id_Estado" />
+        <PropertyRef Name="IdEstado" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Tareas_NivelUrgencia">
-    <End Role="NivelUrgencia" Type="Self.NivelUrgencia" Multiplicity="1" />
+    <End Role="NivelUrgencia" Type="Self.NivelUrgencia" Multiplicity="0..1" />
     <End Role="Tareas" Type="Self.Tareas" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="NivelUrgencia">
-        <PropertyRef Name="Id_NivelUrgencia" />
+        <PropertyRef Name="IdNUrgencia" />
       </Principal>
       <Dependent Role="Tareas">
-        <PropertyRef Name="Id_NivelUrgencia" />
+        <PropertyRef Name="IdNivelUrgencia" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

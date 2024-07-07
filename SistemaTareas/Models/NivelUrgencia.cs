@@ -20,8 +20,8 @@ namespace SistemaTareas.Models
             this.Tareas = new HashSet<Tareas>();
         }
     
-        public int Id_NivelUrgencia { get; set; }
-        public string Nivel { get; set; }
+        public int IdNUrgencia { get; set; }
+        public string NivelUrgencia1 { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Tareas> Tareas { get; set; }
